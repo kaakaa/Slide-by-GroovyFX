@@ -13,9 +13,28 @@ import javafx.scene.text.*
 import javafx.scene.paint.*
 
 start {
-    def pagination = getPagination()
-    def anchor = getAnchorPane(pagination)
-    getPage(anchor)
+	def pagination = getPagination()
+	def anchor = getAnchorPane(pagination)
+	getPage(anchor)
+}
+
+def getPage(anchor){
+	return new SceneGraphBuilder().stage(title: 'GroovyFX Hello World', visible: true, ) {
+		scene(width: 640, height: 480, root: anchor)
+	}
+}
+
+public VBox createPage(int pageIndex, textList) {
+	VBox box = new VBox(5)
+	textList.each { line ->
+		VBox element = new VBox()
+		Hyperlink link = new Hyperlink("Item ")
+		link.setVisited(true)
+		Label text = new Label(line + link.getText())
+		element.getChildren().addAll(link, text)
+		box.getChildren().add(element)
+	}
+	return box
 }
 
 def getAnchorPane(pagination){
@@ -40,23 +59,4 @@ def getPagination(){
 		}
 	})
 	return pagination
-}
-
-def getPage(anchor){
-    return new SceneGraphBuilder().stage(title: 'GroovyFX Hello World', visible: true, ) {
-        scene(width: 640, height: 480, root: anchor)
-    }
-}
-
-public VBox createPage(int pageIndex, textList) {
-    VBox box = new VBox(5)
-    textList.each { line ->
-        VBox element = new VBox()
-        Hyperlink link = new Hyperlink("Item ")
-        link.setVisited(true)
-        Label text = new Label(line + link.getText())
-        element.getChildren().addAll(link, text)
-        box.getChildren().add(element)
-    }
-    return box
 }
