@@ -13,7 +13,6 @@ import javafx.scene.text.*
 import javafx.scene.paint.*
 
 start {
-
     def pagination = getPagination()
     def anchor = getAnchorPane(pagination)
     getPage(anchor)
@@ -28,7 +27,7 @@ def getAnchorPane(pagination){
 	String image = getClass().getClassLoader().getResource("hellofx/20130504shugo_2.jpg").toExternalForm()
 	anchor.setStyle("-fx-background-image: url('" + image + "');")
 	anchor.getChildren().addAll(pagination)
-    return anchor
+	return anchor
 }
 
 def getPagination(){
@@ -37,7 +36,7 @@ def getPagination(){
 	pagination.setPageFactory(new Callback<Integer, Node>() {
 		@Override
 		public Node call(Integer pageIndex) {
-			return createPage(pageIndex)
+			return createPage(pageIndex, ['hogehoge','fugafuga'])
 		}
 	})
 	return pagination
@@ -45,34 +44,17 @@ def getPagination(){
 
 def getPage(anchor){
     return new SceneGraphBuilder().stage(title: 'GroovyFX Hello World', visible: true, ) {
-        scene(width: 640, height: 480, root: anchor) {
-            hbox(padding: 60) {
-                text(text: 'Groovy', font: '80pt sanserif') {
-                    fill linearGradient(endX: 0, stops: [PALEGREEN, SEAGREEN])
-                }
-                text(text: 'FX', font: '80pt sanserif') {
-                    fill linearGradient(endX: 0, stops: [CYAN, DODGERBLUE])
-                    effect dropShadow(color: DODGERBLUE, radius: 25, spread: 0.25)
-                }
-            }
-            rotate(angle: 90, axis: [1,1,0])
-            imageView(viewport: [0,0, 400,400])
-        }
+        scene(width: 640, height: 480, root: anchor)
     }
 }
 
-public int itemsPerPage() {
-    return 8;
-}
-
-public VBox createPage(int pageIndex) {
+public VBox createPage(int pageIndex, textList) {
     VBox box = new VBox(5)
-    int page = pageIndex * itemsPerPage()
-    (page..page+itemsPerPage()).each { i ->
+    textList.each { line ->
         VBox element = new VBox()
-        Hyperlink link = new Hyperlink("Item " + (i+1))
+        Hyperlink link = new Hyperlink("Item ")
         link.setVisited(true)
-        Label text = new Label("Search results\nfor " + link.getText())
+        Label text = new Label(line + link.getText())
         element.getChildren().addAll(link, text)
         box.getChildren().add(element)
     }
