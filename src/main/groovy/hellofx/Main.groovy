@@ -20,12 +20,14 @@ start {
 }
 
 def getAnchorPane(pagination){
-    AnchorPane anchor = new AnchorPane()
-    AnchorPane.setTopAnchor(pagination, 10.0)
-    AnchorPane.setRightAnchor(pagination, 10.0)
-    AnchorPane.setBottomAnchor(pagination, 10.0)
-    AnchorPane.setLeftAnchor(pagination, 10.0)
-    anchor.getChildren().addAll(pagination)
+	AnchorPane anchor = new AnchorPane()
+	AnchorPane.setTopAnchor(pagination, 10.0)
+	AnchorPane.setRightAnchor(pagination, 10.0)
+	AnchorPane.setBottomAnchor(pagination, 10.0)
+	AnchorPane.setLeftAnchor(pagination, 10.0)
+	String image = getClass().getClassLoader().getResource("hellofx/20130504shugo_2.jpg").toExternalForm()
+	anchor.setStyle("-fx-background-image: url('" + image + "');")
+	anchor.getChildren().addAll(pagination)
     return anchor
 }
 
