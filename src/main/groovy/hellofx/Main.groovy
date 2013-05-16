@@ -32,19 +32,15 @@ def getAnchorPane(pagination){
 }
 
 def getPagination(){
-    pagination = new Pagination(28, 0)
-    pagination.setStyle("-fx-border-color:red;")
-    pagination.setPageFactory(new Callback<Integer, Node>() {
-        @Override
-        public Node call(Integer pageIndex) {
-	  if(pageIndex==2){
-		return createPage2(pageIndex)
-	  }else{
-          	return createPage(pageIndex)
-	  }
-        }
-    })
-    return pagination
+	pagination = new Pagination(28, 0)
+	pagination.setStyle("-fx-border-color:red;")
+	pagination.setPageFactory(new Callback<Integer, Node>() {
+		@Override
+		public Node call(Integer pageIndex) {
+			return createPage(pageIndex)
+		}
+	})
+	return pagination
 }
 
 def getPage(anchor){
@@ -67,15 +63,6 @@ def getPage(anchor){
 
 public int itemsPerPage() {
     return 8;
-}
-
-public VBox createPage2(int pageIndex) {
-    VBox element = new VBox()
-    Hyperlink link = new Hyperlink("http://google.com")
-    link.setVisited(true)
-    Label text = new Label("Google -> " + link.getText())
-    element.getChildren().addAll(link, text)
-    return element
 }
 
 public VBox createPage(int pageIndex) {
